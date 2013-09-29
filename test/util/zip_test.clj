@@ -1,4 +1,4 @@
-(ns core-test
+(ns util.zip-test
   (:require [clojure.test :refer :all]
             [cgit.util.zip :refer :all]))
 
