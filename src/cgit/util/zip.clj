@@ -11,4 +11,4 @@
     (let [inflater (java.util.zip.InflaterInputStream. (java.io.FileInputStream. file))
           buffer (make-array Byte/TYPE 1024)]
       (.read inflater buffer 0 1024)
-      (apply str (map char buffer)))))
+      buffer)))
