@@ -11,6 +11,9 @@
 (defn- get-content [bytes]
   (drop 1 (drop-while #(not (= 0 %)) bytes)))
 
+(defn get-content-string [blob]
+  (apply str (map char (:content blob))))
+
 (defn parse-object [bytes]
   {:type (get-type bytes)
    :length (get-length bytes)
