@@ -17,3 +17,8 @@
 (deftest i-can-parse-the-length
   (let [blob (get-object "64c63999a318632683e1d368bdf186a2e283d725")]
     (is (= 280 (:length blob)))))
+
+(deftest i-can-get-content
+  (let [blob (get-object "64c63999a318632683e1d368bdf186a2e283d725")]
+    (is (= 280
+          (count (:content blob))))))
