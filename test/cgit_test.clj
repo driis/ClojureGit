@@ -32,3 +32,15 @@ A Clojure implementation of git (read-only).
 
 This is a pet project for me to learn Clojure and git internals at the same time. It will probably be wrong, have bugs, and might not ever be completed. It is not intended to be used for \"production\" usage."
           content-string))))
+
+(deftest cat-file-can-get-type
+  (is (= "blob" (cat-file "t" "64c63999a318632683e1d368bdf186a2e283d725"))))
+
+(deftest cat-file-can-get-size
+  (is (= 280 (cat-file "s" "64c63999a318632683e1d368bdf186a2e283d725"))))
+
+(deftest cat-file-can-validate
+  (is (true? (cat-file "e" "64c63999a318632683e1d368bdf186a2e283d725"))))
+
+(deftest cat-file-can-get-content
+  (is (= 280 (count (cat-file "p" "64c63999a318632683e1d368bdf186a2e283d725")))))

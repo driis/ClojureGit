@@ -29,5 +29,9 @@
   [mode hash]
   (cond
     (= "t" mode) (:type (get-object hash))
+    (= "s" mode) (:length (get-object hash))
     (= "p" mode) (get-content-string (get-object hash))
+    (= "e" mode) (if (get-object hash)
+                   true
+                   false)
     :else (throw (Exception. (str "Unknown type " mode)))))
