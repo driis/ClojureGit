@@ -24,7 +24,10 @@
     (parse-object bytes)))
 
 (defn cat-file
-  "Returns the content of a git object"
-  [hash]
-  (get-object hash)
-)
+  "Returns the content of a git object with the given hash
+  mode can be: t = type, p = text content"
+  [mode hash]
+  (cond
+    (= "t" mode) (:type (get-object hash))
+    (= "p" mode) (get-content-string (get-object hash))
+    :else (throw (Exception. (str "Unknown type " mode)))))
