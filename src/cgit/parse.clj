@@ -18,9 +18,19 @@
   (let [rdr (clojure.java.io/reader (into-array Byte/TYPE (:content blob)))]
     (line-seq rdr)))
 
+(defn- parse-author [author]
+  (let [author-parts (partition-by #(= \< (first %)) author)]
+    {:name (str/join \space (first author-parts))
+     :email (apply str (butlast (rest (first (second author-parts)))))}))
+
 (defn- parse-line [line]
   (let [parts (str/split line #"\s")]
-    {(keyword (first parts)) (last parts)}))
+    (let [key (first parts)]
+      (let [value (case key
+                    "author" (parse-author (rest parts))
+                    "committer" (parse-author (rest parts))
+                    (last parts))]
+        {(keyword key) value}))))
 
 ;; Parse raw blob
 (defn get-content-string [blob]

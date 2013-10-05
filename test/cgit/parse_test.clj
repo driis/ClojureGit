@@ -40,8 +40,8 @@
   (let [commit (get-commit "a07e4c832e7bb76268c49a01c9ee885c7d91353e")]
     (is (= "Intermedia commit, because git pack screwed the tests. Oops." (:comment commit)))))
 
-;(deftest i-can-parse-commit-author
-;  (let [commit (get-commit "a07e4c832e7bb76268c49a01c9ee885c7d91353e")]
-;    (let [author (:author commit)]
-;      (is (= "Dennis Riis" (:name author)))
-;      (is (= "driis@ebay.com") (:email author)))))
+(deftest i-can-parse-commit-author
+  (let [commit (get-commit "a07e4c832e7bb76268c49a01c9ee885c7d91353e")]
+    (let [author (:author commit)]
+      (is (= "Dennis Riis" (:name author)))
+      (is (= "dr@driis.dk" (:email author))))))
