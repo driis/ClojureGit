@@ -1,37 +1,17 @@
 (ns cgit
-  (:require [cgit.util.zip :as zip]))
+  (:require [cgit.util.zip :as zip]
+             [cgit.parse :as parse]))
 
-(defn- get-type [bytes]
-  (apply str (take-while #(not (= \space %)) (map char bytes))))
-
-(defn- get-length [bytes]
-  (let [length-str (drop-while #(not (= \space (char %))) (take-while #(not (= 0 %)) bytes))]
-    (read-string (apply str (map char length-str)))))
-
-(defn- get-content [bytes]
-  (drop 1 (drop-while #(not (= 0 %)) bytes)))
-
-(defn get-content-string [blob]
-  (apply str (map char (:content blob))))
-
-(defn parse-object [bytes]
-  {:type (get-type bytes)
-   :length (get-length bytes)
-   :content (get-content bytes)})
-
-(defn get-object [hash]
-  (let [bytes (zip/unzip-blob hash)]
-    (parse-object bytes)))
 
 (defn cat-file
   "Returns the content of a git object with the given hash
   mode can be: t = type, p = text content"
   [mode hash]
   (cond
-    (= "t" mode) (:type (get-object hash))
-    (= "s" mode) (:length (get-object hash))
-    (= "p" mode) (get-content-string (get-object hash))
-    (= "e" mode) (if (get-object hash)
+    (= "t" mode) (:type (parse/get-object hash))
+    (= "s" mode) (:length (parse/get-object hash))
+    (= "p" mode) (parse/get-content-string (parse/get-object hash))
+    (= "e" mode) (if (parse/get-object hash)
                    true
                    false)
     :else (throw (Exception. (str "Unknown type " mode)))))
