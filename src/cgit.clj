@@ -8,10 +8,10 @@
   mode can be: t = type, p = text content"
   [mode hash]
   (cond
-    (= "t" mode) (:type (parse/get-object hash))
-    (= "s" mode) (:length (parse/get-object hash))
-    (= "p" mode) (parse/get-content-string (parse/get-object hash))
-    (= "e" mode) (if (parse/get-object hash)
+    (= "t" mode) (:type (parse/get-blob hash))
+    (= "s" mode) (:length (parse/get-blob hash))
+    (= "p" mode) (parse/get-content-string (parse/get-blob hash))
+    (= "e" mode) (if (parse/get-blob hash)
                    true
                    false)
     :else (throw (Exception. (str "Unknown type " mode)))))
