@@ -36,7 +36,11 @@ This is a pet project for me to learn Clojure and git internals at the same time
 
 ;; Parse object types
 (deftest i-can-parse-a-commit
-  (let [commit (parse-commit "c5f0568851444572b1e17421dd9fb88e72d87af0")]
-    (is (= "Create project scaffolding" [:comment commit]))
-    (is (= "036bbbde02143c508732dae8ff54d011897f5b2f" [:tree commit]))
-    (is (= "dc3f8865780c6fc1e60264b5ae0a99bfab35bcb3" [:parent commit]))))
+  (let [commit (parse-commit (get-blob "c5f0568851444572b1e17421dd9fb88e72d87af0"))]
+    (is (= "Create project scaffolding" (:comment commit)))
+    (is (= "036bbbde02143c508732dae8ff54d011897f5b2f" (:tree commit)))
+    (is (= "dc3f8865780c6fc1e60264b5ae0a99bfab35bcb3" (:parent commit)))))
+
+(deftest i-can-get-a-commit-from-its-hash
+  (let [commit (get-commit "c5f0568851444572b1e17421dd9fb88e72d87af0")]
+    (is (= "Create project scaffolding" (:comment commit)))))

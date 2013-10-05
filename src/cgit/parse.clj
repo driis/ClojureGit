@@ -1,5 +1,7 @@
 (ns cgit.parse
-  (:require [cgit.util.zip :as zip]))
+  (:require [cgit.util.zip :as zip]
+            [clojure.string :as str]
+            [clojure.java.io]))
 
 ;; Helper functions
 (defn- get-type [bytes]
@@ -11,6 +13,14 @@
 
 (defn- get-content [bytes]
   (drop 1 (drop-while #(not (= 0 %)) bytes)))
+
+(defn- lines [blob]
+  (let [rdr (clojure.java.io/reader (into-array Byte/TYPE (:content blob)))]
+    (line-seq rdr)))
+
+(defn- parse-line [line]
+  (let [parts (str/split line #"\s")]
+    {(keyword (first parts)) (last parts)}))
 
 ;; Parse raw blob
 (defn get-content-string [blob]
@@ -27,4 +37,10 @@
 
 ;; Parse object types
 (defn parse-commit [blob]
-  blob)
+  (let [parts (split-with #(not (= "" %)) (lines blob))]
+    (let [comment (str/join "\n" (drop 1 (last parts)))
+          values (map parse-line (first parts))]
+      (into {:comment comment} values))))
+
+(defn get-commit [hash]
+  (parse-commit (get-blob hash)))
