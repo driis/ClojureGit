@@ -10,4 +10,4 @@
 (deftest i-can-unzip-an-object-and-get-correct-number-of-bytes
   (is (=
         289
-        (count (unzip-blob "64c63999a318632683e1d368bdf186a2e283d725")))))
+        (count (unzip-blob "3c4326225f47c63a170305174a46ea27d42ac48e")))))
