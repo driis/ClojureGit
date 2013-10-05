@@ -44,3 +44,9 @@ This is a pet project for me to learn Clojure and git internals at the same time
 (deftest i-can-get-a-commit-from-its-hash
   (let [commit (get-commit "c5f0568851444572b1e17421dd9fb88e72d87af0")]
     (is (= "Create project scaffolding" (:comment commit)))))
+
+(deftest i-can-parse-commit-author
+  (let [commit (get-commit "c5f0568851444572b1e17421dd9fb88e72d87af0")]
+    (let [author (:author commit)]
+      (is (= "Dennis Riis" (:name author)))
+      (is (= "driis@ebay.com") (:email author)))))
