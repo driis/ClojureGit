@@ -22,10 +22,16 @@
   {:timestamp (Integer/parseInt (first time-parts))
    :utc-offset (Integer/parseInt (second time-parts))})
 
+(defn- parse-email [email-parts]
+  (apply str (butlast (rest (first email-parts)))))
+
+(defn- parse-name [name-parts]
+  (str/join \space name-parts))
+
 (defn- parse-author [author-parts]
   (let [author-parts (partition-by #(= \< (first %)) author-parts)]
-    {:name (str/join \space (first author-parts))
-     :email (apply str (butlast (rest (first (second author-parts)))))
+    {:name (parse-name (first author-parts))
+     :email (parse-email (second author-parts))
      :authored-time (parse-time (nth author-parts 2))}))
 
 (defn- parse-line [line]
