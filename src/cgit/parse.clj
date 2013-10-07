@@ -18,10 +18,15 @@
   (let [rdr (clojure.java.io/reader (into-array Byte/TYPE (:content blob)))]
     (line-seq rdr)))
 
-(defn- parse-author [author]
-  (let [author-parts (partition-by #(= \< (first %)) author)]
+(defn- parse-time [time-parts]
+  {:timestamp (Integer/parseInt (first time-parts))
+   :utc-offset (Integer/parseInt (second time-parts))})
+
+(defn- parse-author [author-parts]
+  (let [author-parts (partition-by #(= \< (first %)) author-parts)]
     {:name (str/join \space (first author-parts))
-     :email (apply str (butlast (rest (first (second author-parts)))))}))
+     :email (apply str (butlast (rest (first (second author-parts)))))
+     :authored-time (parse-time (nth author-parts 2))}))
 
 (defn- parse-line [line]
   (let [parts (str/split line #"\s")]

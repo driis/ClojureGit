@@ -44,4 +44,7 @@
   (let [commit (get-commit "a07e4c832e7bb76268c49a01c9ee885c7d91353e")]
     (let [author (:author commit)]
       (is (= "Dennis Riis" (:name author)))
-      (is (= "dr@driis.dk" (:email author))))))
+      (is (= "dr@driis.dk" (:email author)))
+      (let [authored-time (:authored-time author)]
+        (is (= 1381007424 (:timestamp authored-time)))
+        (is (= 200 (:utc-offset authored-time)))))))
