@@ -31,3 +31,6 @@
   (let [log-stream (log "8d9d6d3ade568b8f10a8540447b89b77a3097cba" {:max 2})]
     (is (= 2 (count log-stream)))))
 
+(deftest i-can-get-head
+  (is (= 40 (count (get-head)))))
+
