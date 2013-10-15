@@ -1,5 +1,5 @@
 (ns cgit.parse
-  (:require [cgit.util.zip :as zip]
+  (:require [cgit.zip :as zip]
             [clojure.string :as str]
             [clojure.java.io]))
 
