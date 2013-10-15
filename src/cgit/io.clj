@@ -1,4 +1,5 @@
-(ns cgit.io)
+(ns cgit.io
+  (:require [clojure.java.io :as cio]))
 
 (def buffer-size 1024)
 
@@ -12,3 +13,9 @@
       (if (< read 1)
         res
         (recur buffer (concat res (doall (take read buffer))))))))
+
+(defn read-file [file]
+  (let [input (cio/input-stream file)]
+    (let [result (read-full-stream input)]
+      (.close input)
+      result)))
