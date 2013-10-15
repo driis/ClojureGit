@@ -19,3 +19,6 @@
     (let [result (read-full-stream input)]
       (.close input)
       result)))
+
+(defn read-uint [buffer]
+  (reduce #(bit-or (bit-shift-left %1 8) (bit-and 0xFF %2)) 0 (take 4 buffer)))
