@@ -21,4 +21,12 @@
       result)))
 
 (defn read-uint [buffer]
+  "Reads a single unsigned integer from buffer sequence of bytes."
   (reduce #(bit-or (bit-shift-left %1 8) (bit-and 0xFF %2)) 0 (take 4 buffer)))
+
+(defn read-uints [buffer]
+  "Reads a lazy sequence of unsigned integers from a buffer sequence of bytes."
+  (let [[next rest] (split-at 4 buffer)]
+    (if (< (count next) 4)
+      []
+      (cons (read-uint next) (lazy-seq (read-uints rest))))))

@@ -16,6 +16,9 @@
   (is (= 515 (read-uint [0 0 2 3])))
   (is (= 4285812579 (read-uint [-1 116 79 99]))))
 
-(deftest read-int-takes-first-4-bytes
+(deftest read-uint-takes-first-4-bytes
   (is (= 512 (read-uint [0 0 2 0 17 12])))
   (is (= 515 (read-uint [0 0 2 3 91 30]))))
+
+(deftest read-uints-is-a-sequence-of-ints
+  (is (= [514 3] (read-uints [0 0 2 2 0 0 0 3]))))

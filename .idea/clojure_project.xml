@@ -3,6 +3,7 @@
   <component name="ClojureProjectSettings">
     <option name="coloredParentheses" value="true" />
     <option name="separateREPLItems" value="true" />
+    <option name="useStructuralEditing" value="false" />
   </component>
 </project>
 
