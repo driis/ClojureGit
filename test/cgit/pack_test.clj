@@ -18,3 +18,9 @@
         length (index-length buffer)]
     (is (and (> length  100)
              (< length 5000)))))
+
+(deftest i-can-read-object-names-from-index-file
+  (let [buffer (read-file index-file)
+        length (index-length buffer)
+        objects (get-index-objects buffer)]
+    (is (= length (count objects)))))
