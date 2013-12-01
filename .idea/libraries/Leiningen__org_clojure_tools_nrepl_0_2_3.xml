@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Leiningen: org.clojure:tools.nrepl:0.2.3">
+  <library name="Leiningen: org.clojure/tools.nrepl:0.2.3">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/clojure/tools.nrepl/0.2.3/tools.nrepl-0.2.3.jar!/" />
     </CLASSES>
